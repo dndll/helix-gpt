@@ -15,7 +15,7 @@ export default class Github extends ApiBase {
     })
   }
 
-  async chat(request: string, contents: string, filepath: string, languageId: string, suggestions = 3): Promise<types.Chat> {
+  async chat(request: string, contents: string, filepath: string, languageId: string, suggestions = 3, handler: string): Promise<types.Chat> {
     const messages = [
       {
         "content": `You are an AI programming assistant.\nWhen asked for your name, you must respond with \"GitHub Copilot\".\nFollow the user's requirements carefully & to the letter.\n- Each code block starts with \`\`\` and // FILEPATH.\n- You always answer with ${languageId} code.\n- When the user asks you to document something, you must answer in the form of a ${languageId} code block.\nYour expertise is strictly limited to software development topics.\nFor questions not related to software development, simply give a reminder that you are an AI programming assistant.\nKeep your answers short and impersonal.`,
@@ -41,13 +41,16 @@ export default class Github extends ApiBase {
       messages
     }
 
+    log(handler, "chat body", JSON.stringify(body))
+
     const data = await this.request({
       method: "POST",
       body,
-      endpoint: "/v1/chat/completions",
-      timeout: 10000
+      endpoint: config.openaiModel?.includes("deepseek") ? "/chat/completions" : "/v1/chat/completions",
+      timeout: 60000
     })
 
+    log(handler, "chat response", JSON.stringify(data))
     return types.Chat.fromResponse(data, filepath, languageId)
   }
 

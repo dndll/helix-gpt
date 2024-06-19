@@ -12,6 +12,10 @@ const { values } = parseArgs({
       type: 'string',
       default: Bun.env.HANDLER ?? 'openai'
     },
+    chatHandler: {
+      type: 'string',
+      default: Bun.env.CHAT_HANDLER ?? 'openai'
+    },
     debounce: {
       type: 'string',
       default: Bun.env.DEBOUNCE ?? '400'

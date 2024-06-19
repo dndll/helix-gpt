@@ -13,26 +13,28 @@ const registerProvider = (key: string, provider: Provider) => {
 }
 
 const getProvider = (key: string): Provider => {
-  if (!providers[config.handler]) {
-    const error = `no provider: ${config.handler}`
+  if (!providers[key]) {
+    const error = `no provider: ${key}`
     log(error)
     throw new Error(error)
   }
 
-  return providers[config.handler]
+  return providers[key]
 }
 
 const chat = async (...args: any[]) => {
-  log(config.handler, "chat request", JSON.stringify(args))
-  const provider = getProvider(config.handler)
+  const handler = config.chatHandler ? config.chatHandler : config.handler
+  log(handler, "chat request", JSON.stringify(args))
+  const provider = getProvider(handler)
 
   if (!provider.chat) {
-    const error = `No chat provider for: ${config.handler}`
+    const error = `No chat provider for: ${handler}`
     log(error)
     throw new Error(error)
   }
 
-  return provider.chat(...args)
+
+  return provider.chat(...args, handler)
 }
 
 const completion = async (...args: any[]) => {

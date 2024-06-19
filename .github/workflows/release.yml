@@ -45,24 +45,30 @@ jobs:
           mv dist/helix-gpt dist/$OUTPUT
           mv dist/helix-gpt.js "dist/$APP-$VERSION.js"
 
-      - name: Tag release
-        run: |
-          git config --global user.name "dndll"
-          git config --global user.email "d@nuff.tech"
-          sed -e 's/<release-version>/${{ github.event.inputs.tag }}/g' assets/template.md > README.md
-          git add README.md
-          git commit -m 'release: version ${{ github.event.inputs.tag }}'
-          git push origin master
-          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-          messages=$(git log $latest_tag..HEAD --pretty=format:"%h - %s")
-          git tag -m "$messages" -a ${{ github.event.inputs.tag }}
-          git push origin ${{ github.event.inputs.tag }} 
-          
+      # - name: Tag release
+      #   run: |
+      #     git config --global user.name "dndll"
+      #     git config --global user.email "d@nuff.tech"
+      #     sed -e 's/<release-version>/${{ github.event.inputs.tag }}/g' assets/template.md > README.md
+      #     git add README.md
+      #     git commit -m 'release: version ${{ github.event.inputs.tag }}'
+      #     # git push origin master
+      #     latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+      #     messages=$(git log $latest_tag..HEAD --pretty=format:"%h - %s")
+      #     git tag -m "$messages" -a ${{ github.event.inputs.tag }}
+      #     git push origin ${{ github.event.inputs.tag }} 
       - uses: actions/upload-artifact@v4
         if: vars.RUNNER != 'act'
         with:
           name: bins
           path: dist
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          # files: |
+          #   dist
+          tag_name: '${{ github.event.inputs.tag }}'
+          name: '${{ github.event.inputs.tag }}'
 
   publish:
     name: Publish

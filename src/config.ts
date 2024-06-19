@@ -34,7 +34,7 @@ const { values } = parseArgs({
     },
     openaiMaxTokens: {
       type: 'string',
-      default: Bun.env.OPENAI_MAX_TOKENS ?? "7000"
+      default: Bun.env.OPENAI_MAX_TOKENS ?? "4096"
     },
     openaiEndpoint: {
       type: 'string',

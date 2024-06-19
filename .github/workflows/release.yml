@@ -47,8 +47,8 @@ jobs:
 
       - name: Tag release
         run: |
-          git config --global user.name "Leon"
-          git config --global user.email "leon@nx.ie"
+          git config --global user.name "dndll"
+          git config --global user.email "d@nuff.tech"
           sed -e 's/<release-version>/${{ github.event.inputs.tag }}/g' assets/template.md > README.md
           git add README.md
           git commit -m 'release: version ${{ github.event.inputs.tag }}'

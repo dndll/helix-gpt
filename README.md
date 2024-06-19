@@ -33,18 +33,18 @@ environment = { HANDLER= "codeium" }
 
 # helix-gpt
 
-![Build Status](https://github.com/leona/helix-gpt/actions/workflows/release.yml/badge.svg)
+![Build Status](https://github.com/dndll/helix-gpt/actions/workflows/release.yml/badge.svg)
 ![Github Release](https://img.shields.io/badge/release-v0.31-blue)
 
 Code assistant language server for [Helix](https://github.com/helix-editor/helix) with support for Copilot/OpenAI/Codeium.
 
 Completion example
 
-![helix-gpt example](https://github.com/leona/helix-gpt/raw/master/assets/example.gif)
+<!-- ![helix-gpt example](https://github.com/dndll/helix-gpt/raw/master/assets/example.gif) -->
 
 Code actions example (space + a)
 
-![helix-gpt example](https://github.com/leona/helix-gpt/raw/master/assets/example2.gif)
+<!-- ![helix-gpt example](https://github.com/dndll/helix-gpt/raw/master/assets/example2.gif) -->
 
 Available code actions: `resolveDiagnostics` `generateDocs` `improveCode` `refactorFromComment` `writeTest`
 
@@ -62,24 +62,29 @@ This was made to run with [Bun](https://bun.sh/), but you can also use a precomp
 #### Without Bun
 
 ```bash
-wget https://github.com/leona/helix-gpt/releases/download/0.31/helix-gpt-0.31-x86_64-linux.tar.gz \
+wget https://github.com/dndll/helix-gpt/releases/download/0.31/helix-gpt-0.31-x86_64-linux.tar.gz \
 -O /tmp/helix-gpt.tar.gz \
 && tar -zxvf /tmp/helix-gpt.tar.gz \
 && mv helix-gpt-0.31-x86_64-linux /usr/bin/helix-gpt \
 && chmod +x /usr/bin/helix-gpt
 ```
 
+```
+wget https://github.com/dndll/helix-gpt/releases/download/dev/helix-gpt-dev-x86_64-linux.tar.gz -O /tmp/helix-gpt.tar.gz && tar -zxvf /tmp/helix-gpt.tar.gz && sudo mv helix-gpt-dev-x86_64-linux /usr/bin/helix-gpt && chmod +x /usr/bin/helix-gpt
+--2024-06-19 15:35:40--  https://github.com/dndll/helix-gpt/releases/download/dev/helix-gpt-dev-x86_64-linux.tar.gz
+```
+
 #### With Bun (tested with 1.0.25)
 
 ```bash
-wget https://github.com/leona/helix-gpt/releases/download/0.31/helix-gpt-0.31.js -O /usr/bin/helix-gpt
+sudo wget https://github.com/dndll/helix-gpt/releases/download/dev/helix-gpt-dev.js -O /usr/bin/helix-gpt-js
 ```
 
 ### Configuration
 
 You can configure helix-gpt by exposing either the environment variables below, or by passing the command line options directly to helix-gpt in the Helix configuration step.
 
-[All configuration options](https://github.com/leona/helix-gpt/blob/master/src/config.ts)
+[All configuration options](https://github.com/dndll/helix-gpt/blob/master/src/config.ts)
 
 NOTE: Copilot is the best choice due to the model and implementation.
 

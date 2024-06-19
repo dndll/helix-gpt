@@ -15,7 +15,7 @@ export default class Github extends ApiBase {
     })
   }
 
-  async chat(request: string, contents: string, filepath: string, languageId: string): Promise<types.Chat> {
+  async chat(request: string, contents: string, filepath: string, languageId: string, suggestions = 3): Promise<types.Chat> {
     const messages = [
       {
         "content": `You are an AI programming assistant.\nWhen asked for your name, you must respond with \"GitHub Copilot\".\nFollow the user's requirements carefully & to the letter.\n- Each code block starts with \`\`\` and // FILEPATH.\n- You always answer with ${languageId} code.\n- When the user asks you to document something, you must answer in the form of a ${languageId} code block.\nYour expertise is strictly limited to software development topics.\nFor questions not related to software development, simply give a reminder that you are an AI programming assistant.\nKeep your answers short and impersonal.`,
@@ -32,11 +32,11 @@ export default class Github extends ApiBase {
     ]
 
     const body = {
-      max_tokens: 7909,
-      model: "gpt-4",
+      model: config.openaiModel,
+      max_tokens: parseInt(config.openaiMaxTokens as string),
       n: 1,
       stream: false,
-      temperature: 0.1,
+      temperature: suggestions > 1 ? 0.4 : 0,
       top_p: 1,
       messages
     }
